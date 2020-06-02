@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log Reading
+{% endblock %}
+
+{% block main %}
+    <h2 class="spaceBottom">
+        Log Reading
+    </h2>
+    <!-- form so that the user can log reading - gets the book, pages read, and date read -->
+    <form action="/logReading" method="post">
+        <div class="form-group">
+            <select class="form-control" name="book">
+                <!-- dropdown of all the books the user has logged -->
+                <option disabled selected value>Book</option>
+                {% for book in books %}
+                    <option value="{{book.title}}">{{book.title}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="number" min="1" placeholder="Pages Read" name="pages" id="pages">
+        </div>
+        <div class="form-group">
+            Enter the date that you read
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="date"  name="readingDate" id="readingDate">
+        </div>
+        <button class="btn btn-primary" type="submit">Log Reading</button>
+    </form>
+
+    <!-- makes sure the user filled out everything before submitting -->
+    <script>
+        document.querySelector('form').onsubmit = function() {
+            if (!document.querySelector('select').value) {
+                alert('You must select the book you read');
+                return false;
+            }
+            else if (!document.querySelector('#pages').value){
+                alert("You must say how many pages you read")
+                return false;
+            }
+            else if (!document.querySelector('#readingDate').value) {
+                alert('You must provide the date you read the book');
+                return false;
+            }
+            return true;
+        };
+    </script>
+{% endblock %}

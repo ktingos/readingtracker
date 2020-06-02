@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Reading History
+{% endblock %}
+
+{% block main %}
+    <h2 class="spaceBottom">
+        Reading History
+    </h2>
+
+    <!-- form so that the user can select which book they want to see the reading history for -->
+    <form action="/readingHistory" method="post">
+        <div class="form-group">
+            <!-- dropdown of all the books they have logged -->
+            <select class="form-control" name="bookHistoryRequested">
+                <option selected value="allBooks">All Books</option>
+                {% for book in books %}
+                    <option value="{{book.title}}">{{book.title}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">See History for This Book</button>
+    </form>
+
+    <p class="space">
+        Click the table column headers to sort the table by that column
+    </p>
+    <!-- table of all the reading logs that the user wants to see -->
+    <p>
+        <table class="table table-striped" id="readings">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Pages Read</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr> <td>{{ log.title }}</td> <td>{{ log.pagesRead }}</td> <td>{{ log.readingDate }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </p>
+
+    <script>
+        // makes sure the user selected a book before submitting the form
+        document.querySelector('form').onsubmit = function() {
+            if (!document.querySelector('select').value) {
+                alert('You must select the book');
+                return false;
+            }
+            return true;
+        };
+
+        // makes sure the table is interactive
+        $(document).ready(function() {
+            $('#readings').DataTable();
+        } );
+    </script>
+{% endblock %}

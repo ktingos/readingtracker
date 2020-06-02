@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <!-- form that allows the user to create an account -->
+    <form action="/register" method="post">
+        <div class="form-group">
+            <!-- gets the username-->
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" id="name">
+        </div>
+        <div class="form-group">
+            <!-- gets the password -->
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <!-- gets the password confirmation -->
+            <input class="form-control" name="confirmation" placeholder="Confirm Password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+
+    <script>
+            let username = document.querySelector("#name");
+            let form = document.querySelector('form');
+            // prevents the form from submitting
+            form.addEventListener("submit", function(event){event.preventDefault()});
+            // only submits form if username is available
+            form.onsubmit = function() {
+                $.get('/check', {name: username.value}, function(data) {
+                    if(!data) {
+                        alert("Username Taken");
+                    }
+                    else {
+                        form.submit();
+                    }
+                });
+            };
+    </script>
+{% endblock %}

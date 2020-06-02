@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+    <!-- graph of the preson's reading this past week -->
+    <div id="readingGraph"></div>
+
+    <h2 class="topSpace">
+        What Others are Reading
+    </h2>
+    <!-- shows the list of what other people on the website are reading -->
+    {% for suggestion in suggestions %}
+        <li class="suggestions"> {{ suggestion.title }} by {{ suggestion.author }} ({{ suggestion.genre }})</li>
+    {% endfor %}
+
+    <script>
+        // Got help from: https://canvasjs.com/html5-javascript-column-chart/
+        // Sets up the reading bar graph
+        window.onload = function () {
+            // gets the info about the person's reading this past week
+            $.get("getInfo", function(data){
+                var info = data;
+                var chart = new CanvasJS.Chart("readingGraph", {
+            	animationEnabled: true,
+            	theme: "light1", // "light1", "light2", "dark1", "dark2"
+            	title:{
+            		text: "My Reading this Week"
+            	},
+            	axisY: {
+            		title: "Pages Read"
+            	},
+            	data: [{
+            		type: "column",
+            		showInLegend: false,
+            		dataPoints: [
+            			{ y: info[0]["pages"], label: info[0]["date"] },
+            			{ y: info[1]["pages"], label: info[1]["date"] },
+            			{ y: info[2]["pages"], label: info[2]["date"] },
+            			{ y: info[3]["pages"], label: info[3]["date"] },
+            			{ y: info[4]["pages"], label: info[4]["date"] },
+            			{ y: info[5]["pages"], label: info[5]["date"] },
+            			{ y: info[6]["pages"], label: info[6]["date"] },
+            		]
+            	}]
+            });
+            chart.render();
+            });
+        }
+    </script>
+{% endblock %}

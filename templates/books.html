@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Books
+{% endblock %}
+
+{% block main %}
+    <h2>
+        My Books
+    </h2>
+    <p class="space">
+        Click the table column headers to sort the table by that column
+    </p>
+    <!-- table that displays all the books the person has logged -->
+    <table class="table table-striped" id="books">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Finish Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr> <td>{{ book.title }}</td> <td>{{ book.author }}</td> <td>{{ book.genre }}</td> <td>{{ book.startdate }}</td> <td>{{ book.finishdate }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- allows the table to be interactive -->
+    <script>
+        $(document).ready(function() {
+            $('#books').DataTable();
+        } );
+    </script>
+{% endblock %}

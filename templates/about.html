@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block main %}
+    <!-- has information about reading tracker -->
+    <h2 class="spaceBottom">
+        About Reading Tracker
+    </h2>
+    <p class="about">
+        Reading Tracker is a website designed to help you keep track of your reading. It makes it easy for you to log the books
+        that you have read and keep track of when you read them. It also allows you to log the reading that you do every day
+        so that you can look back and see how many pages you read on any given day.
+    </p>
+    <p class="about">
+        This was created for the CS50 final project at Harvard College. I chose this idea because I have always loved reading but
+        have not done it nearly as much in recent years. By making it so easy to keep track of my reading, my hope was to motivate
+        myself and others to continue reading as much as possible.
+    </p>
+
+    <h2 class="topSpace">
+        Where It All Started
+    </h2>
+    <p class="about centered">
+        Lionel Hall, my freshman dorm
+    </p>
+
+    <!-- Google map - I got help from https://developers.google.com/maps/documentation/javascript/adding-a-google-map -->
+    <div class="space" id="map"></div>
+
+    <!-- sets up the map centered at Lionel Hall with a marker -->
+    <script>
+        function initMap() {
+            var uluru = {lat: 42.3751, lng: -71.1184};
+            var map = new google.maps.Map(document.getElementById('map'), {zoom: 18, center: uluru});
+            var marker = new google.maps.Marker({position: uluru, map: map, title: "Lionel Hall"});
+        }
+    </script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA10tfKzlH_45c9xhZ-drgZr8Fyrx0n0Xo&callback=initMap">
+    </script>
+{% endblock %}

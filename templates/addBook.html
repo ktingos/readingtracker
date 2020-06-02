@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Book
+{% endblock %}
+
+{% block main %}
+    <h2 class="spaceBottom">
+        Add a Book
+    </h2>
+    <div class="spaceBottom">
+        Title and author will appear exactly how you type them
+    </div>
+    <!-- form that allows the user to input info about a book they want to log -->
+    <form action="/addBook" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="title" placeholder="Book Title" type="text" id="title">
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="author" placeholder="Author" type="text" id="author">
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="genre">
+                <option disabled selected value>Genre</option>
+                <option value="Sci-Fi/Fantasy">Sci-Fi/Fantasy</option>
+                <option value="Mystery">Mystery</option>
+                <option value="Action/Adventure">Action/Adventure</option>
+                <option value="Tragedy">Tragedy</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Romance">Romance</option>
+                <option value="Non Fiction">Non Fiction</option>
+                <option value="Horror">Horror</option>
+                <option value="Classics">Classics</option>
+                <option value="Historical Fiction">Historical Fiction</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            Date Started
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="date"  name="startdate" id="startdate">
+        </div>
+        <div class="form-group">
+            Date Finished (Optional)
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="date" name="finishdate" id="finishdate">
+        </div>
+        <button class="btn btn-primary" type="submit">Add Book</button>
+    </form>
+
+    <!-- makes sure the user inputted all the required info before submitting -->
+    <script>
+        document.querySelector('form').onsubmit = function() {
+            if (!document.querySelector('#title').value) {
+                alert('You must provide the book title');
+                return false;
+            }
+            else if (!document.querySelector('#author').value) {
+                alert('You must provide the author');
+                return false;
+            }
+            else if (!document.querySelector('select').value) {
+                alert('You must provide the genre');
+                return false;
+            }
+            else if (!document.querySelector('#startdate').value) {
+                alert('You must provide the date you started the book');
+                return false;
+            }
+            return true;
+        };
+    </script>
+{% endblock %}
